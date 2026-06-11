@@ -75,7 +75,7 @@ this.notificationService = notificationService;
         }
         
      // ✅ Skip very large code
-        if (code.length() > 2000) {
+        if (code.length() > 50000) {
         	log.warn("⚠️ Code too large to review: {}", code.length());
             githubService.postReviewComment(
                 repo,

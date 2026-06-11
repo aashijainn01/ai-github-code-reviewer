@@ -129,9 +129,9 @@ public class GithubService {
             headers.set("Accept", "application/vnd.github+json");
             headers.set("Content-Type", "application/json");
 
-            String safeReview = review.replace("\"", "\\\"");
-
-            String body = "{\"body\": \"" + safeReview + "\"}";
+            ObjectMapper mapper = new ObjectMapper();
+            java.util.Map<String, String> bodyMap = java.util.Map.of("body", review);
+            String body = mapper.writeValueAsString(bodyMap);
 
             HttpEntity<String> entity = new HttpEntity<>(body, headers);
 

@@ -50,7 +50,8 @@ public class WebhookController {
             PullRequestEvent event = objectMapper.readValue(payload, PullRequestEvent.class);
 
             if (!"opened".equals(event.getAction()) &&
-                !"synchronize".equals(event.getAction())) {
+                !"synchronize".equals(event.getAction()) &&
+                !"reopened".equals(event.getAction())) {
 
                 log.info("⏭️ Ignoring event: {}", event.getAction());
                 return "Ignored";
