@@ -310,11 +310,4 @@ When a Pull Request is submitted, the AI reviews the diffs and publishes a struc
 ```
 
 ---
-
-## 👩‍💻 Collaborators & Authors
-
-* **Aashi Jain** - *Lead Java Backend & AI Developer* (B.Tech IT)
-* **Krish Chourasia** - *Collaborator / Documentation & Architecture designer*
-
----
 Give this repository a ⭐ if it helps automate your development workflow!
