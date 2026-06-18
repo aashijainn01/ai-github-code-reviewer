@@ -8,20 +8,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Service
 public class AIService {
 
-	@Value("${openai.api.key}")
+	@Value("${gemini.api.key}")
     private String apiKey;
 
     private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public String reviewCode(String code, String language){
 
         try {
 
 //           
-        	 String url = "https://api.openai.com/v1/chat/completions";
+        	 String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
 
         	 String prompt;
 
@@ -215,7 +219,15 @@ Code:
             System.out.println("🤖 AI RAW RESPONSE:");
             System.out.println(response.getBody());
 
-            return response.getBody();
+            // Parse Gemini response to extract the review text
+            JsonNode root = objectMapper.readTree(response.getBody());
+            String reviewText = root
+                    .path("candidates").get(0)
+                    .path("content")
+                    .path("parts").get(0)
+                    .path("text").asText();
+
+            return reviewText;
 
         } catch (Exception e) {
             e.printStackTrace();
